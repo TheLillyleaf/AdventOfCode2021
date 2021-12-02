@@ -1,10 +1,11 @@
 import java.io.File;
 import java.util.Scanner;
 
-public class dec2A {
+public class dec2B {
 
     static int horPos = 0;
     static int depth = 0;
+    static int aim = 0;
 
     public static void main(String[] args) {
         readFile();
@@ -47,13 +48,14 @@ public class dec2A {
         switch (dir) {
             case "forward":
                 horPos += amount;
+                depth += (aim * amount);
 
                 break;
             case "up":
-                depth -= amount;
+                aim -= amount;
                 break;
             case "down":
-                depth += amount;
+                aim += amount;
                 break;
 
             default:
