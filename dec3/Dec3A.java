@@ -19,8 +19,10 @@ public class Dec3A {
 
             scanner.close();
 
-            firstPart(list);
-            secondPart(list);
+            System.out.println("power consumption: " + firstPart(list));
+            ;
+            System.out.println("Life support: " + secondPart(list));
+            ;
 
         } catch (FileNotFoundException e) {
             System.out.println(
@@ -29,7 +31,7 @@ public class Dec3A {
 
     }
 
-    public static void firstPart(List<String> inputList) {
+    public static int firstPart(List<String> inputList) {
         StringBuilder gammaBuilder = new StringBuilder();
         StringBuilder epsilonBuilder = new StringBuilder();
 
@@ -51,18 +53,16 @@ public class Dec3A {
         int gamma = Integer.parseInt(gammaBuilder.toString(), 2);
         int epsilon = Integer.parseInt(epsilonBuilder.toString(), 2);
 
-        System.out.println("Power consumption: " + gamma * epsilon);
+        return gamma * epsilon;
 
     }
 
-    public static void secondPart(List<String> inputList) {
-        List<String> oxygenList = new ArrayList<>(filterList(inputList, true));
-        List<String> co2List = new ArrayList<>(filterList(inputList, false));
+    public static int secondPart(List<String> inputList) {
 
-        int oxygen = Integer.parseInt(oxygenList.get(0), 2);
-        int co2 = Integer.parseInt(co2List.get(0), 2);
+        int oxygen = Integer.parseInt(filterList(inputList, true).get(0), 2);
+        int co2 = Integer.parseInt(filterList(inputList, false).get(0), 2);
 
-        System.out.println("Life support: " + oxygen * co2);
+        return oxygen * co2;
 
     }
 
@@ -85,11 +85,8 @@ public class Dec3A {
             int oneCount = (int) inputList.stream().filter(s -> s.charAt(i) == '1').count();
             int zeroCount = inputList.size() - oneCount;
 
-            if (oneCount > zeroCount) {
+            if (oneCount > zeroCount || oneCount == zeroCount) {
                 inputList = inputList.stream().filter(s -> s.charAt(i) == value1).collect(Collectors.toList());
-            } else if (oneCount == zeroCount) {
-                inputList = inputList.stream().filter(s -> s.charAt(i) == value1).collect(Collectors.toList());
-
             } else {
                 inputList = inputList.stream().filter(s -> s.charAt(i) == value2).collect(Collectors.toList());
 
